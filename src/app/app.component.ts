@@ -8,8 +8,6 @@ import { environment } from 'src/environments/environment';
 })
 export class AppComponent {
   constructor(){
-    console.log(environment.production);
-    console.log(environment.apiUrl);
   }
 
   title = 'FoxFinFrontend';
