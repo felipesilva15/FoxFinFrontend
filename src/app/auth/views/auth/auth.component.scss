@@ -1,0 +1,41 @@
+.login-page {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.text-center{
+	text-align: center
+}
+
+mat-card {
+  width: 30%;
+  margin: 5% auto;
+  border-radius: 8px;
+}
+
+mat-form-field {
+  width: 90%;
+  display: block;
+  margin: auto;
+}
+
+.login{
+  overflow: hidden;
+}
+
+mat-card-content {
+  margin-top: 20px;
+}
+
+mat-card-title {
+  margin-top: 20px;
+}
+
+.login-button {
+  margin-top: 20px;
+  display: block;
+  width: 90%;
+  margin: 20px auto;
+}
+

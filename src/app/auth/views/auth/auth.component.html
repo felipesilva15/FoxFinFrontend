@@ -1,0 +1,117 @@
+<div class="login-page">
+  <mat-card class="mat-elevation-z12">
+    <mat-card-title class="text-center">FoxFin</mat-card-title>
+    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
+      <mat-tab label="Login">
+          <mat-card-content>
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+              <mat-form-field appearance="outline">
+                <mat-label>E-mail</mat-label>
+                <input
+                  matInput
+                  placeholder="email@exemplo.com"
+                  required
+                  formControlName="email">
+                  <mat-error *ngIf="error">E-mail é obrigatório</mat-error>
+                <mat-icon matSuffix>mail</mat-icon>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Senha</mat-label>
+                <input
+                  matInput
+                  type="password"
+                  required
+                  minlength="6"
+                  formControlName="password">
+                  <mat-error *ngIf="error">
+                    Senha é obrigatória
+                  </mat-error>
+                  <mat-error *ngIf="error">
+                    Senha precisa ter 6 caracteres
+                  </mat-error>
+                <mat-icon matSuffix>lock</mat-icon>
+              </mat-form-field>
+              <button
+                mat-raised-button
+                color="primary"
+                class="login-button">
+                Login
+              </button>
+            </form>
+          </mat-card-content>
+      </mat-tab>
+      <mat-tab label="Cadastre-se">
+        <mat-card-content>
+          <form action="">
+            <mat-form-field appearance="outline">
+              <mat-label>Nome de usuário</mat-label>
+              <input
+                matInput
+                required
+                name="username"
+                ngModel
+                #username="ngModel">
+              <mat-icon matSuffix>perm_identity</mat-icon>
+              <mat-error
+                *ngIf="username.invalid">
+                Usuário é obrigatório
+              </mat-error>
+
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>E-mail</mat-label>
+              <input
+                matInput
+                placeholder="email@exemplo.com"
+                required
+                name="email"
+                ngModel
+                #email="ngModel">
+                <mat-error *ngIf="email.invalid">E-mail é obrigatório</mat-error>
+              <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Senha</mat-label>
+              <input
+                matInput
+                type="password"
+                required
+                minlength="6"
+                name="password"
+                ngModel
+                #password="ngModel">
+                <mat-error *ngIf="error">
+                  Senha é obrigatória
+                </mat-error>
+                <mat-error *ngIf="error">
+                  Senha precisa ter 6 caracteres
+                </mat-error>
+              <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Confirme sua senha</mat-label>
+                <input
+                matInput
+                type="password"
+                required
+                minlength="6"
+                name="repassword"
+                ngModel
+                #repassword="ngModel">
+                <mat-error *ngIf="error">
+                  Confirmação de senha é obrigatório
+                </mat-error>
+              <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>
+            <button
+              mat-raised-button
+              color="primary"
+              class="login-button">
+              Cadastrar-se
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>
