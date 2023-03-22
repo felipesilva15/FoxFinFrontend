@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../model/user';
 import { AuthService } from '../../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -9,7 +10,7 @@ import { AuthService } from '../../service/auth.service';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent {
-  constructor(private authService: AuthService){ }
+  constructor(private authService: AuthService, private router: Router){ }
 
   hide: boolean = true;
   error: boolean = false;
@@ -19,9 +20,9 @@ export class AuthComponent {
     password: new FormControl('', [Validators.required])
   });
 
-  ngOnInit() { }
+  ngOnInit(): void{ }
 
-  onLogin(){
+  onLogin(): void{
     let user: User = {
       id: 0,
       name: '',
@@ -34,6 +35,29 @@ export class AuthComponent {
     this.authService.login(user).subscribe(
       (res)=>{
         alert('Login efetuado!');
+        this.router.navigate(['/']);
+      },
+      (err)=>{
+        alert('Ocorreu um erro: ' + err.error.message);
+        console.log(err);
+      }
+    )
+  }
+
+  onRegister(): void{
+    let user: User = {
+      id: 0,
+      name: '',
+      email: this.loginForm.get('email')?.value,
+      password: this.loginForm.get('password')?.value,
+      password_confirmation: '',
+      access_token: ''
+    };
+
+    this.authService.register(user).subscribe(
+      (res)=>{
+        alert('Cadastro efetuado!');
+        this.router.navigate(['/']);
       },
       (err)=>{
         alert('Ocorreu um erro: ' + err.error.message);
