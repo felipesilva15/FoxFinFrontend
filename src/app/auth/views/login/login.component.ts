@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { User } from '../../model/user';
 import { AuthService } from '../../service/auth.service';
 import { Observable } from 'rxjs';
+import { FormGroup, FormControl, Validators } from '@angular/forms'
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,15 @@ import { Observable } from 'rxjs';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  users: User[] = [];
+  constructor(private authService: AuthService){ }
+
+  hide: boolean = true;
+
+  loginForm: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required])
+  });
+
   user: User = {
     id: 0,
     name: '',
@@ -19,36 +28,17 @@ export class LoginComponent {
     access_token: ''
   };
 
-  user$: Observable<User> = new Observable();
+  ngOnInit() { }
 
-  constructor(private authService: AuthService){ }
-
-  ngOnInit(){
-    // this.authService.list()
-    //   .subscribe(dados => this.users = dados);
-
-    //this.authService.login(this.user).subscribe(dados => this.user = dados);
-
-    console.log(this.user);
-  }
-
-  login(){
-    if(!this.user.email || this.user.email == ''){
-      alert('Preencha o e-mail');
-    } else if(!this.user.password || this.user.password == ''){
-      alert('Preencha a senha');
-    }
-
+  onLogin(){
     this.authService.login(this.user).subscribe(
-      (data)=>{
-        this.user = data;
+      (res)=>{
+        alert('Login efetuado!');
       },
       (err)=>{
         alert('Ocorreu um erro: ' + err.error.message);
         console.log(err);
       }
     )
-
-    //this.user$ = this.authService.login(this.user);
   }
 }
