@@ -20,6 +20,13 @@ export class AuthComponent {
     password: new FormControl('', [Validators.required])
   });
 
+  registerForm: FormGroup = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
+    password_confirmation: new FormControl('', [Validators.required])
+  });
+
   ngOnInit(): void{ }
 
   onLogin(): void{
@@ -47,10 +54,10 @@ export class AuthComponent {
   onRegister(): void{
     let user: User = {
       id: 0,
-      name: '',
-      email: this.loginForm.get('email')?.value,
-      password: this.loginForm.get('password')?.value,
-      password_confirmation: '',
+      name: this.registerForm.get('name')?.value,
+      email: this.registerForm.get('email')?.value,
+      password: this.registerForm.get('password')?.value,
+      password_confirmation: this.registerForm.get('password_confirmation')?.value,
       access_token: ''
     };
 

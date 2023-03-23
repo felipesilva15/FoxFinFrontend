@@ -42,18 +42,16 @@
       </mat-tab>
       <mat-tab label="Cadastre-se">
         <mat-card-content>
-          <form action="">
+          <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
             <mat-form-field appearance="outline">
               <mat-label>Nome de usuário</mat-label>
               <input
                 matInput
                 required
-                name="username"
-                ngModel
-                #username="ngModel">
+                formControlName="name">
               <mat-icon matSuffix>perm_identity</mat-icon>
               <mat-error
-                *ngIf="username.invalid">
+                *ngIf="error">
                 Usuário é obrigatório
               </mat-error>
 
@@ -64,10 +62,8 @@
                 matInput
                 placeholder="email@exemplo.com"
                 required
-                name="email"
-                ngModel
-                #email="ngModel">
-                <mat-error *ngIf="email.invalid">E-mail é obrigatório</mat-error>
+                formControlName="email">
+                <mat-error *ngIf="error">E-mail é obrigatório</mat-error>
               <mat-icon matSuffix>email</mat-icon>
             </mat-form-field>
             <mat-form-field appearance="outline">
@@ -77,9 +73,7 @@
                 type="password"
                 required
                 minlength="6"
-                name="password"
-                ngModel
-                #password="ngModel">
+                formControlName="password">
                 <mat-error *ngIf="error">
                   Senha é obrigatória
                 </mat-error>
@@ -95,9 +89,7 @@
                 type="password"
                 required
                 minlength="6"
-                name="repassword"
-                ngModel
-                #repassword="ngModel">
+                formControlName="password_confirmation">
                 <mat-error *ngIf="error">
                   Confirmação de senha é obrigatório
                 </mat-error>
