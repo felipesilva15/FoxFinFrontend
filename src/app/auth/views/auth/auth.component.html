@@ -2,9 +2,10 @@
   <mat-card class="mat-elevation-z12">
     <mat-card-title class="text-center">FoxFin</mat-card-title>
     <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
+      <!-- Login de usuário -->
       <mat-tab label="Login">
           <mat-card-content>
-            <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()" #formDir="ngForm">
               <mat-form-field appearance="outline">
                 <mat-label>E-mail</mat-label>
                 <input
@@ -12,8 +13,13 @@
                   placeholder="email@exemplo.com"
                   required
                   formControlName="email">
-                  <mat-error *ngIf="error">E-mail é obrigatório</mat-error>
                 <mat-icon matSuffix>mail</mat-icon>
+                <mat-error *ngIf="emailLogin.errors?.['required']">
+                  O e-mail é obrigatório
+                </mat-error>
+                <mat-error *ngIf="emailLogin.errors?.['email']">
+                  E-mail inválido
+                </mat-error>
               </mat-form-field>
               <mat-form-field appearance="outline">
                 <mat-label>Senha</mat-label>
@@ -23,13 +29,13 @@
                   required
                   minlength="6"
                   formControlName="password">
-                  <mat-error *ngIf="error">
-                    Senha é obrigatória
+                  <mat-icon matSuffix>lock</mat-icon>
+                  <mat-error *ngIf="passwordLogin.errors?.['required']">
+                    A senha é obrigatória
                   </mat-error>
-                  <mat-error *ngIf="error">
-                    Senha precisa ter 6 caracteres
+                  <mat-error *ngIf="passwordLogin.errors?.['minlength']">
+                    A senha precisa ter pelo menos 6 caracteres
                   </mat-error>
-                <mat-icon matSuffix>lock</mat-icon>
               </mat-form-field>
               <button
                 mat-raised-button
@@ -40,6 +46,7 @@
             </form>
           </mat-card-content>
       </mat-tab>
+      <!-- Cadastro de usuário -->
       <mat-tab label="Cadastre-se">
         <mat-card-content>
           <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
@@ -50,11 +57,9 @@
                 required
                 formControlName="name">
               <mat-icon matSuffix>perm_identity</mat-icon>
-              <mat-error
-                *ngIf="error">
-                Usuário é obrigatório
+              <mat-error *ngIf="nameRegister.errors?.['required']">
+                O nome de usuário é obrigatório
               </mat-error>
-
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>E-mail</mat-label>
@@ -63,8 +68,13 @@
                 placeholder="email@exemplo.com"
                 required
                 formControlName="email">
-                <mat-error *ngIf="error">E-mail é obrigatório</mat-error>
               <mat-icon matSuffix>email</mat-icon>
+              <mat-error *ngIf="emailRegister.errors?.['required']">
+                O e-mail é obrigatório
+              </mat-error>
+              <mat-error *ngIf="emailRegister.errors?.['email']">
+                E-mail inválido
+              </mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Senha</mat-label>
@@ -74,11 +84,11 @@
                 required
                 minlength="6"
                 formControlName="password">
-                <mat-error *ngIf="error">
-                  Senha é obrigatória
+                <mat-error *ngIf="passwordRegister.errors?.['required']">
+                  A senha é obrigatória
                 </mat-error>
-                <mat-error *ngIf="error">
-                  Senha precisa ter 6 caracteres
+                <mat-error *ngIf="passwordRegister.errors?.['minlength']">
+                  A senha precisa ter pelo menos 6 caracteres
                 </mat-error>
               <mat-icon matSuffix>lock</mat-icon>
             </mat-form-field>
@@ -90,8 +100,11 @@
                 required
                 minlength="6"
                 formControlName="password_confirmation">
-                <mat-error *ngIf="error">
-                  Confirmação de senha é obrigatório
+                <mat-error *ngIf="passwordConfRegister.errors?.['required']">
+                  A confirmação de senha é obrigatória
+                </mat-error>
+                <mat-error *ngIf="passwordConfRegister.errors?.['minlength']">
+                  A confirmação de senha precisa ter pelo menos 6 caracteres
                 </mat-error>
               <mat-icon matSuffix>lock</mat-icon>
             </mat-form-field>

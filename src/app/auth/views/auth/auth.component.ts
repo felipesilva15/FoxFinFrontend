@@ -12,29 +12,63 @@ import { Router } from '@angular/router';
 export class AuthComponent {
   constructor(private authService: AuthService, private router: Router){ }
 
-  hide: boolean = true;
-  error: boolean = false;
+  // Create forms
+  loginForm!: FormGroup;
+  registerForm!: FormGroup;
 
-  loginForm: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required])
-  });
+  ngOnInit(): void{
+    // Login form
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required])
+    });
 
-  registerForm: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
-    password_confirmation: new FormControl('', [Validators.required])
-  });
+    // Register form
+    this.registerForm = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required]),
+      password_confirmation: new FormControl('', [Validators.required])
+    });
+  }
 
-  ngOnInit(): void{ }
+  // gets Login
+  get emailLogin() {
+    return this.loginForm.get('email')!;
+  }
 
+  get passwordLogin() {
+    return this.loginForm.get('password')!;
+  }
+
+  // gets Register
+  get nameRegister() {
+    return this.registerForm.get('name')!;
+  }
+
+  get emailRegister() {
+    return this.registerForm.get('email')!;
+  }
+
+  get passwordRegister() {
+    return this.registerForm.get('password')!;
+  }
+
+  get passwordConfRegister() {
+    return this.registerForm.get('password_confirmation')!;
+  }
+
+  // Submit form Login
   onLogin(): void{
+    if(this.loginForm.invalid){
+      return;
+    }
+
     let user: User = {
       id: 0,
       name: '',
-      email: this.loginForm.get('email')?.value,
-      password: this.loginForm.get('password')?.value,
+      email: this.emailLogin.value,
+      password: this.passwordLogin.value,
       password_confirmation: '',
       access_token: ''
     };
@@ -51,13 +85,18 @@ export class AuthComponent {
     )
   }
 
+  // Submit form Register
   onRegister(): void{
+    if(this.registerForm.invalid){
+      return;
+    }
+
     let user: User = {
       id: 0,
-      name: this.registerForm.get('name')?.value,
-      email: this.registerForm.get('email')?.value,
-      password: this.registerForm.get('password')?.value,
-      password_confirmation: this.registerForm.get('password_confirmation')?.value,
+      name: this.nameRegister.value,
+      email: this.emailRegister.value,
+      password: this.passwordRegister.value,
+      password_confirmation: this.passwordConfRegister.value,
       access_token: ''
     };
 
