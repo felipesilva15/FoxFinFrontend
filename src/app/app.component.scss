@@ -2,3 +2,63 @@
   min-height: 100%;
   background-color: #F5F5F5;
 }
+
+nav{
+  display: flex;
+  justify-content: space-between;
+}
+
+div>img{
+  width: 40px;
+  mix-blend-mode: multiply;
+}
+
+nav div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFF;
+}
+
+.navbar-nav{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.nav-item{
+  list-style: none;
+  margin: 0 10px;
+}
+
+.nav-item a{
+  text-decoration: none;
+  color: #FFF;
+  font-size: 1.1em;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.nav-item a:hover, .active{
+  opacity: 1 !important;
+
+}
+
+.active{
+  text-decoration: underline !important;
+}
+
+header{
+  background-color: #11C467;
+}
+
+.user-account{
+  font-size: 2.5em;
+  width: auto;
+  height: auto;
+}
+
+.mx-2{
+  margin: 0 1.2em;
+}
