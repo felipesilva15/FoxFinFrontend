@@ -14,9 +14,7 @@ export class LogoutComponent {
       (res) => {
         alert(res.message  && res.message != '' ? res.message : 'Ok!');
       },
-      (err) => {
-        console.error(err);
-      }
+      (err) => { }
     )
   }
 }

@@ -10,10 +10,16 @@ import {
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { MessageModalService } from '../shared/services/message-modal.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private messageModalService: MessageModalService) {
+
+  }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     if(this.authService.token && this.authService.token != ''){
@@ -29,12 +35,14 @@ export class AuthInterceptor implements HttpInterceptor {
       tap(
         () => {},
         (err: any) => {
-          if (err instanceof HttpErrorResponse) {
-            if (!err.status || err.status !== 401) {
-              return;
-            }
+          console.error(err);
 
-            this.router.navigate(['/auth']);
+          if (err instanceof HttpErrorResponse) {
+            if (err.status == 401) {
+              this.router.navigate(['/auth']);
+            } else{
+              this.messageModalService.showDialog(err.error.message);
+            }
           }
         }
       )
