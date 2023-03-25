@@ -3,6 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../model/user';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { MessageModalComponent } from 'src/app/shared/views/message-modal/message-modal.component';
+import { ConfirmModalComponent } from 'src/app/shared/views/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-auth',
@@ -10,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent {
-  constructor(private authService: AuthService, private router: Router){ }
+  constructor(private authService: AuthService, private router: Router, private dialog: MatDialog){ }
 
   // Create forms
   loginForm!: FormGroup;
@@ -79,7 +82,7 @@ export class AuthComponent {
         this.router.navigate(['/']);
       },
       (err)=>{
-        alert('Ocorreu um erro: ' + err.error.message);
+        this.openDialog(err.error.message);
         console.log(err);
       }
     )
@@ -106,9 +109,21 @@ export class AuthComponent {
         this.router.navigate(['/']);
       },
       (err)=>{
-        alert('Ocorreu um erro: ' + err.error.message);
+        this.openDialog(err.error.message);
         console.log(err);
       }
     )
+  }
+
+  openDialog(message: string): void{
+    this.dialog.open(ConfirmModalComponent, {
+      autoFocus: true,
+      disableClose: true,
+      minWidth: '400px',
+      data: {
+        title: 'Erro inesperado',
+        message: message
+      }
+    });
   }
 }

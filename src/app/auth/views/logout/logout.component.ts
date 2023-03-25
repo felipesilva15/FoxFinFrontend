@@ -16,7 +16,6 @@ export class LogoutComponent {
       },
       (err) => {
         console.error(err);
-        alert(err.message);
       }
     )
   }
