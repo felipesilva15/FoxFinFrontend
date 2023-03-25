@@ -7,8 +7,11 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(){
-  }
+  mostrarMenu: boolean = true;
 
-  title = 'FoxFinFrontend';
+  constructor() {}
+
+  ngOnInit() {
+    this.mostrarMenu = window.location.pathname.substring(1).split('/')[0] == 'auth' ? false : true
+  }
 }
