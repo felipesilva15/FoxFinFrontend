@@ -40,9 +40,12 @@ export class AuthInterceptor implements HttpInterceptor {
           if (err instanceof HttpErrorResponse) {
             if (err.status == 401) {
               this.router.navigate(['/auth']);
-            } else{
-              this.messageModalService.showDialog(err.error.message);
-            }
+              return;
+            } 
+            
+            let message = err.error.message ? err.error.message : 'Erro inesperado. Tente novamente mais tarde ou entre em contato com o administrador do sistema.';
+
+            this.messageModalService.showDialog(message);
           }
         }
       )
